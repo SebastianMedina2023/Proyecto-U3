@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../services/product.service';
 import { ToastController } from '@ionic/angular';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product',
@@ -11,28 +11,31 @@ import { Route, Router } from '@angular/router';
 })
 export class AddProductPage {
 
-  public producForm: FormGroup
-  constructor(private fomBuilder: FormBuilder, private productService: ProductService,private toastController: ToastController, private router:Router) { 
-    this.producForm = this.fomBuilder.group({
+  public productForm:FormGroup;
+  constructor(private formBuilder: FormBuilder,
+    private productsService:ProductService,
+    private toastController: ToastController,
+    private router:Router) {
+    
+    this.productForm = this.formBuilder.group({
       name:['',Validators.required],
       price:[0,Validators.required],
-      description:[''],
+      description: [''],
       photo:['',Validators.required],
       type:['',Validators.required],
+      
     });
   }
 
-  public async addProduct(){
-    const product = this.producForm.value;
-    this.productService.addProducts(product);
+  public async addproduct(){
+    const product = this.productForm.value;
+    this.productsService.addProduct(product);
 
     const toast = await this.toastController.create({
-      message: 'Producto añadido',
+      message: "Producto añadido",
       duration: 2000,
-      position: 'bottom'
+      position: 'top',
     });
-    
-    
     toast.present();
     this.router.navigate(['/tabs/tab1']);
   }

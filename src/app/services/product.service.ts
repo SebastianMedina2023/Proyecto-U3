@@ -5,12 +5,9 @@ import { Product } from '../models/product.model';
   providedIn: 'root'
 })
 export class ProductService {
-
-  private products: Product[]=[];
-  
-
-  constructor() {
-
+  private products: Product[] = [];
+  public pos:number=0;
+  constructor() { 
     this.products.push({
       name: "Aguacate",
       price: 100,
@@ -39,26 +36,28 @@ export class ProductService {
       type: "Farmacia",
       photo: "https://picsum.photos/500/300?random"
     });
+  }
 
-   }
-
-
-   public addProducts(p: Product):Product[]{
-      this.products.push(p);
-      return this.products;
-   }
-
-   public removeProduct(pos: number):Product[]{
+  public addProduct(p:Product):Product[]{
+    this.products.push(p);
+    return this.products;
+  }
+  public removeProduct(pos:number):Product[]{
     this.products.splice(pos,1);
     return this.products;
-   }
+  }
 
-   public updateProduct(pos: number,p:Product):Product[]{
-    this.products[pos]=p;
+  public updateProduct(pos:number,p:Product):Product[]{
+    this.products[pos] = p;
     return this.products;
-   }
+  }
+  public getProducts(): Product[]{
+    return this.products;
+  }
+  public getProductsWhere(pos:number): Product{
+    return this.products[pos];
+  }
 
-   public getProducts():Product[]{
-    return this.products;
-   }
+
+
 }
